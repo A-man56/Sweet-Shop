@@ -55,11 +55,11 @@ function Login() {
         <p>
           Don't have an account? <a href="/register">Register here</a>
         </p>
-        <div className="demo-creds">
+        {/* <div className="demo-creds">
           <p><strong>Demo Credentials:</strong></p>
           <p>Email: admin@sweetshop.com</p>
           <p>Password: password123</p>
-        </div>
+        </div> */}
       </div>
     </div>
   )
