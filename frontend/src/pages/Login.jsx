@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { loginUser } from '../services/api'
+import AuthContext from '../context/AuthContext'
 import './Auth.css'
 
 function Login() {
@@ -9,6 +10,7 @@ function Login() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const { setUser } = useContext(AuthContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -19,6 +21,7 @@ function Login() {
       const data = await loginUser(email, password)
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
+      setUser(data.user)
       navigate('/dashboard')
     } catch (err) {
       setError(err.message || 'Login failed')
