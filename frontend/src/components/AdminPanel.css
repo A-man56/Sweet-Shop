@@ -1,0 +1,29 @@
+.admin-panel {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.toggle-form-btn {
+  padding: 12px 24px;
+  background: #d97706;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 20px;
+  transition: background 0.3s;
+}
+
+.toggle-form-btn:hover {
+  background: #b45309;
+}
+
+.admin-panel h2 {
+  color: #d97706;
+  margin: 30px 0 20px 0;
+  border-top: 2px solid #fef3c7;
+  padding-top: 20px;
+}

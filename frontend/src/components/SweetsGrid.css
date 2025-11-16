@@ -1,0 +1,86 @@
+.sweets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.sweet-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.sweet-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.sweet-card h3 {
+  color: #d97706;
+  margin-bottom: 10px;
+}
+
+.sweet-card .category {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.sweet-card .description {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.sweet-card .price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #d97706;
+  margin-bottom: 10px;
+}
+
+.sweet-card .quantity {
+  color: #10b981;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.sweet-card .quantity.out-of-stock {
+  color: #dc2626;
+}
+
+.sweet-card .quantity.low-stock {
+  color: #f59e0b;
+}
+
+.purchase-btn {
+  width: 100%;
+  padding: 12px;
+  background: #d97706;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.purchase-btn:hover:not(:disabled) {
+  background: #b45309;
+}
+
+.purchase-btn:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+}
+
+.no-sweets {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: #6b7280;
+  font-size: 18px;
+}
