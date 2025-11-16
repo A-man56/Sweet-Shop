@@ -10,67 +10,31 @@ dotenv.config();
 const app = express();
 
 function normalizeOrigin(url) {
-  try {
-    return new URL(url).origin;
-  } catch {
-    // fallback: strip trailing slash if present
-    return url ? url.replace(/\/$/, '') : '';
-  }
+  try { return new URL(url).origin; } catch { return url.replace(/\/$/, ''); }
 }
 
-// Build allowed origins list from constants + env var ALLOWED_ORIGINS (comma-separated)
-const defaultAllowed = [
+const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
-  'https://sweet-shop-sigma.vercel.app' // removed trailing slash for consistency
-];
+  process.env.FRONTEND_URL ? normalizeOrigin(process.env.FRONTEND_URL) : '',
+  ...(process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',').map(s => s.trim()).filter(Boolean) : [])
+].filter(Boolean);
 
-// ALLOWED_ORIGINS env var example:
-// https://your-frontend.com,https://sweet-shop-vl30.onrender.com
-const envAllowed = (process.env.ALLOWED_ORIGINS || '')
-  .split(',')
-  .map(s => s.trim())
-  .filter(Boolean);
-
-// also allow a single FRONTEND_URL env var for backward compatibility
-const singleFrontend = process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : [];
-
-const allowedOrigins = [...defaultAllowed, ...envAllowed, ...singleFrontend]
-  .map(normalizeOrigin)
-  .filter(Boolean);
-
-// CORS options
 const corsOptions = {
   origin: (origin, callback) => {
-    // Log incoming origin for debugging in Render logs
-    console.log('CORS check - incoming Origin header:', origin);
-    // allow requests with no origin (curl, server-to-server, some mobile/webviews)
-    if (!origin) {
-      return callback(null, true);
-    }
-    // exact match
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    // optional: allow any subdomain of onrender.com (uncomment if you want)
-    // if (origin.endsWith('.onrender.com')) return callback(null, true);
-
-    // optional: allow any subdomain of vercel.app (uncomment if you want)
-    // if (origin.endsWith('.vercel.app')) return callback(null, true);
-
-    console.warn('CORS blocked origin:', origin);
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
     return callback(new Error('Not allowed by CORS'));
   },
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
   credentials: true
 };
 
-app.use(cors(corsOptions));
-// ensure preflight requests are handled
-app.options('*', cors(corsOptions));
-
 app.use(express.json());
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // handle preflight for all routes
 
-// --- rest of your code unchanged ---
 mongoose
   .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/sweet-shop')
   .then(() => console.log('MongoDB connected'))
