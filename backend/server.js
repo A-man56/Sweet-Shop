@@ -20,6 +20,7 @@ function normalizeOrigin(url) {
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
+  'https://sweet-shop-sigma.vercel.app/',
   process.env.FRONTEND_URL ? normalizeOrigin(process.env.FRONTEND_URL) : ''
 ].filter(Boolean);
 
