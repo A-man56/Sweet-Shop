@@ -16,6 +16,20 @@ Technologies used: **React, Node.js, Express, MongoDB, Cloudinary**.
 
 ---
 
+## 🔐 Demo Credentials
+
+Use these demo accounts to explore the app:
+
+### **Admin Account**
+- **Email:** admin@sweetshop.com  
+- **Password:** password123
+
+### **User Account**
+- **Email:** admin@example.com  
+- **Password:** password123
+---
+
+
 ## ⚙️ Setup Instructions
 
 ### 1. Clone the Repository
@@ -81,7 +95,21 @@ PASS backend/tests/sweets.test.js
 
 ## 🖼️ Screenshots
 
-(Add your images here)
+<img width="1914" height="978" alt="image" src="https://github.com/user-attachments/assets/3a1786c8-00f2-435a-9802-e209b8703718" />
+<img width="1919" height="975" alt="image" src="https://github.com/user-attachments/assets/0808b449-b810-460a-b269-0a970644143b" />
+<img width="1917" height="919" alt="image" src="https://github.com/user-attachments/assets/67cc7d5c-fe02-44a2-9863-24b9e9e90e75" />
+<img width="1919" height="920" alt="image" src="https://github.com/user-attachments/assets/a263d1d5-b68f-46ed-98c3-8022af408eaf" />
+<img width="1919" height="971" alt="image" src="https://github.com/user-attachments/assets/2b41d5fa-39e1-4f61-ae85-f73505b08867" />
+<img width="1919" height="959" alt="image" src="https://github.com/user-attachments/assets/eb3d8992-015f-4568-9b09-d9f4f7f9d3fb" />
+<img width="1917" height="977" alt="image" src="https://github.com/user-attachments/assets/9bb73eed-d4a4-4f7d-a5ab-1b6c5900bdeb" />
+<img width="1919" height="975" alt="image" src="https://github.com/user-attachments/assets/a02d7158-8fcd-4e92-957f-43974115da1f" />
+![Uploading image.png…]()
+![Uploading image.png…]()
+
+
+
+
+
 
 ---
 
@@ -100,14 +128,13 @@ Project logic, structure, and most of the code were written manually.
 
 ## 🌍 Deployment (Optional)
 
-Add link if deployed:
-
 ```
-https://your-app.vercel.app
-```
+frontend deployment :
+https://sweet-shop-psi-hazel.vercel.app/
 
+backend deployment :
+https://sweet-shop-vl30.onrender.com/api
 ---
 
 ## 📞 Contact
-
-[your-email@example.com](mailto:your-email@example.com)
+singhamanjeet87@gmail.com
