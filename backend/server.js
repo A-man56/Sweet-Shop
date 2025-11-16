@@ -9,8 +9,23 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  process.env.FRONTEND_URL || 'https://sweet-shop-epti7zwu0-amansingh007j-gmailcoms-projects.vercel.app/login'
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json());
 
 // MongoDB Connection
@@ -24,10 +39,14 @@ app.use('/api/sweets', sweetsRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK' });
+  res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
 const PORT = process.env.PORT || 5000;
+console.log('[DEBUG] PORT environment variable:', process.env.PORT);
+console.log('[DEBUG] Using PORT:', PORT);
+console.log('[DEBUG] NODE_ENV:', process.env.NODE_ENV);
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
