@@ -4,41 +4,93 @@
   gap: 20px;
 }
 
+/* Card Styling */
 .manage-sweet-card {
-  background: #f9fafb;
+  background: #ffffff;
   border: 2px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 20px;
+  border-radius: 10px;
+  padding: 18px;
   transition: all 0.3s;
+  text-align: center;
 }
 
 .manage-sweet-card:hover {
   border-color: #d97706;
-  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.1);
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
 }
 
+/* Sweet Image */
+.sweet-image {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.no-image {
+  width: 100%;
+  height: 140px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  color: #9ca3af;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+/* Text */
 .manage-sweet-card h4 {
   color: #d97706;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .manage-sweet-card p {
   color: #6b7280;
   font-size: 14px;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
+/* Category badge */
+.category {
+  background: #fef3c7;
+  padding: 3px 10px;
+  border-radius: 12px;
+  display: inline-block;
+  font-size: 12px;
+  margin-bottom: 8px;
+  color: #b45309;
+}
+
+/* Price Style */
+.price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #059669;
+  margin-bottom: 8px;
+}
+
+/* Stock */
+.stock {
+  color: #374151;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
 .manage-sweet-card button {
   padding: 10px 15px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
   font-size: 13px;
   transition: all 0.3s;
-  margin-top: 15px;
-  margin-right: 10px;
-  width: 100%;
+  margin-top: 12px;
+  width: 48%;
 }
 
 .restock-btn {
@@ -59,6 +111,7 @@
   background: #b91c1c;
 }
 
+/* Restock Input Box */
 .restock-form {
   display: flex;
   gap: 10px;
@@ -72,9 +125,11 @@
   border-radius: 5px;
 }
 
+/* Restock buttons */
 .restock-form button {
   margin: 0;
   padding: 8px 15px;
+  width: auto;
 }
 
 .cancel-btn {

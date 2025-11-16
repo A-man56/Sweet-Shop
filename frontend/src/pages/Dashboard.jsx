@@ -1,7 +1,17 @@
 import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
-import { getSweets, searchSweets, addSweet, updateSweet, deleteSweet, purchaseSweet, restockSweet } from '../services/api'
+
+import { 
+  getSweets, 
+  searchSweets, 
+  addSweet, 
+  updateSweet, 
+  deleteSweet, 
+  purchaseSweet, 
+  restockSweet 
+} from '../services/api'
+
 import SweetsGrid from '../components/SweetsGrid'
 import SearchBar from '../components/SearchBar'
 import AdminPanel from '../components/AdminPanel'
@@ -10,13 +20,20 @@ import './Dashboard.css'
 function Dashboard() {
   const navigate = useNavigate()
   const { user } = useContext(AuthContext)
+
   const [sweets, setSweets] = useState([])
   const [filteredSweets, setFilteredSweets] = useState([])
   const [activeTab, setActiveTab] = useState('browse')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const [searchParams, setSearchParams] = useState({ name: '', category: '', minPrice: '', maxPrice: '' })
+  const [searchParams, setSearchParams] = useState({
+    name: '',
+    category: '',
+    minPrice: '',
+    maxPrice: ''
+  })
 
+  // Load sweets initially
   useEffect(() => {
     loadSweets()
   }, [])
@@ -34,6 +51,7 @@ function Dashboard() {
     }
   }
 
+  // Handle search
   const handleSearch = async (params) => {
     setSearchParams(params)
     try {
@@ -44,24 +62,39 @@ function Dashboard() {
     }
   }
 
+  // Add sweet (Admin)
   const handleAddSweet = async (sweetData) => {
     try {
-      await addSweet(sweetData)
+      await addSweet({
+        ...sweetData,
+        price: Number(sweetData.price),
+        quantity: Number(sweetData.quantity),
+        unit: sweetData.unit || "piece",
+        image: sweetData.image || null
+      })
       loadSweets()
     } catch (err) {
       setError('Failed to add sweet')
     }
   }
 
+  // Update sweet (Admin)
   const handleUpdateSweet = async (id, sweetData) => {
     try {
-      await updateSweet(id, sweetData)
+      await updateSweet(id, {
+        ...sweetData,
+        price: Number(sweetData.price),
+        quantity: Number(sweetData.quantity),
+        unit: sweetData.unit || "piece",
+        image: sweetData.image || null
+      })
       loadSweets()
     } catch (err) {
       setError('Failed to update sweet')
     }
   }
 
+  // Delete sweet (Admin)
   const handleDeleteSweet = async (id) => {
     try {
       await deleteSweet(id)
@@ -71,6 +104,7 @@ function Dashboard() {
     }
   }
 
+  // Purchase (User)
   const handlePurchase = async (id) => {
     try {
       await purchaseSweet(id)
@@ -80,6 +114,7 @@ function Dashboard() {
     }
   }
 
+  // Restock (Admin)
   const handleRestock = async (id, amount) => {
     try {
       await restockSweet(id, amount)
@@ -126,7 +161,11 @@ function Dashboard() {
             {loading ? (
               <div className="loading">Loading sweets...</div>
             ) : (
-              <SweetsGrid sweets={filteredSweets} onPurchase={handlePurchase} isAdmin={user?.role === 'admin'} />
+              <SweetsGrid 
+                sweets={filteredSweets} 
+                onPurchase={handlePurchase} 
+                isAdmin={user?.role === 'admin'} 
+              />
             )}
           </>
         )}

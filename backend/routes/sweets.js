@@ -36,12 +36,12 @@ router.get('/search', async (req, res) => {
   }
 });
 
-// Create sweet (Admin)
+// Create sweet (Admin) - accepts image URL from frontend
 router.post('/', authenticate, adminOnly, async (req, res) => {
   try {
-    const { name, category, price, quantity, description, image } = req.body;
+    const { name, category, price, unit, quantity, description, image } = req.body;
 
-    if (!name || !category || price === undefined) {
+    if (!name || !category || !price || !unit) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
@@ -49,9 +49,10 @@ router.post('/', authenticate, adminOnly, async (req, res) => {
       name,
       category,
       price,
+      unit,
       quantity: quantity ?? 0,
       description,
-      image
+      image: image || null // Accept URL from frontend
     });
 
     await sweet.save();
@@ -62,24 +63,27 @@ router.post('/', authenticate, adminOnly, async (req, res) => {
   }
 });
 
-// Update sweet (Admin)
+// Update sweet (Admin) - accepts image URL from frontend
 router.put('/:id', authenticate, adminOnly, async (req, res) => {
   try {
-    const { name, category, price, quantity, description, image } = req.body;
+    const { name, category, price, unit, quantity, description, image } = req.body;
 
-    const sweet = await Sweet.findByIdAndUpdate(
-      req.params.id,
-      {
-        name,
-        category,
-        price,
-        quantity,
-        description,
-        image,
-        updatedAt: new Date()
-      },
-      { new: true, runValidators: true }
-    );
+    const updateData = {
+      name,
+      category,
+      price,
+      unit,
+      quantity,
+      description,
+      updatedAt: new Date()
+    };
+
+    if (image) updateData.image = image; // Accept URL from frontend
+
+    const sweet = await Sweet.findByIdAndUpdate(req.params.id, updateData, {
+      new: true,
+      runValidators: true
+    });
 
     if (!sweet) {
       return res.status(404).json({ error: 'Sweet not found' });
@@ -106,7 +110,7 @@ router.delete('/:id', authenticate, adminOnly, async (req, res) => {
   }
 });
 
-// Purchase sweet (User)
+// Purchase sweet
 router.post('/:id/purchase', authenticate, async (req, res) => {
   try {
     const sweet = await Sweet.findById(req.params.id);
@@ -128,7 +132,7 @@ router.post('/:id/purchase', authenticate, async (req, res) => {
   }
 });
 
-// Restock sweet (Admin)
+// Restock sweet
 router.post('/:id/restock', authenticate, adminOnly, async (req, res) => {
   try {
     const { amount } = req.body;
