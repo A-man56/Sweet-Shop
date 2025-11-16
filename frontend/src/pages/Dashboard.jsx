@@ -19,7 +19,7 @@ import './Dashboard.css'
 
 function Dashboard() {
   const navigate = useNavigate()
-  const { user } = useContext(AuthContext)
+  const { user, setUser } = useContext(AuthContext)
 
   const [sweets, setSweets] = useState([])
   const [filteredSweets, setFilteredSweets] = useState([])
@@ -127,6 +127,7 @@ function Dashboard() {
   const handleLogout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
+    setUser(null)
     navigate('/login')
   }
 
